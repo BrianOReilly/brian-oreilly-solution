@@ -1,0 +1,8 @@
+<p> 
+   		<%= name_with_status(user.full_name, user.status, user.id) %>  
+   		<% if !user.team_id.nil? then %>
+   			<%= link_to user.team.name, user.team %>
+   		<% else %>
+   			No Team 
+   		<%end%>
+</p>

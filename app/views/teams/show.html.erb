@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<h1><%= @team.name %></h1>
+<h2>Users</h2>
+<div id="users-container">
+    <%= sync partial: 'user_list', collection: @team.users, as: :user %>
+    <%= sync_new partial: 'user_list', resource: User.new %>
+</div>
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

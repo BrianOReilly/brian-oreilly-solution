@@ -1,0 +1,18 @@
+<h1>Listing teams</h1>
+
+<%= link_to 'New Team', new_team_path %>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+	<%= sync partial: 'team_list_row', collection: @teams, as: :team %>
+    <%= sync_new partial: 'team_list_row', resource: Team.new %>
+
+</table>
+
+<br />
+

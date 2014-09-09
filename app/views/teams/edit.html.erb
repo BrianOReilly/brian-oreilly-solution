@@ -1,0 +1,41 @@
+<h1>Editing team</h1>
+
+<%= form_for @team do |teamForm|%>
+	<p>
+		<h3>Team Name</h3>
+    	<%= teamForm.label :name%>
+    	<%= teamForm.text_field(:name) %>
+    </p>
+    <%= teamForm.submit%>
+<% end%>
+    <div>
+    <h3>Members</h3>
+    <% @users.each do |user| %>
+	    <%= form_for(user) do |f| %><%= user.full_name %>   
+			<% if Membership.with_user(user).any? %>
+				<% if @team.users.include?(user) %>
+					Member
+				    <%= f.text_field :id, :hidden => true %>    
+				    <%= f.text_field :team_id,value: "", :hidden => true  %>    
+				
+				  	<%= f.submit "Remove User", :confirm => 'This will remove the user from their current team' %>	
+				<% else %>
+					User is in <%= Team.find(user.team).name %>
+				    <%= f.text_field :id, :hidden => true %>    
+				    <%= f.text_field :team_id,value: @team.id, :hidden => true  %>    
+				
+				  	<%= f.submit "Add User", :confirm => 'This will remove the user from their current team' %>			
+				<% end %>
+			<% else %>
+				Not a member in any team 
+			    <%= f.text_field :id, :hidden => true %>    
+			    <%= f.text_field :team_id,value: @team.id, :hidden => true  %>    
+			
+			  	<%= f.submit "Add User"%>
+	
+			<% end %>
+		<% end %>
+	<% end %>
+	</div>
+<%= link_to 'Show', @team %> |
+<%= link_to 'Back', teams_path %>

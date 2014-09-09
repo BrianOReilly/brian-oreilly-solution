@@ -1,0 +1,7 @@
+<h1>Create new Team</h1>
+<%= form_for @team do |teamForm|%>
+    <%= teamForm.label :name%>
+    <%= teamForm.text_field(:name) %>
+    <%= teamForm.submit%>
+<% end%>
+<%= link_to 'Back', teams_path %>

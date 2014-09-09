@@ -1,0 +1,25 @@
+<h1>Listing Users</h1>
+
+<p> 
+  <span class="name"> My status </span>
+  <span class="status status-<%=current_user.status%>"> <%= current_user.status %> </span>
+  <%= link_to("Edit", edit_user_path(current_user), :class => "update-link") %>
+  <% if current_user.team_id.nil? then %> No Team <% else %>  <%= link_to(current_user.team.name, current_user.team, :class => "update-link") %> <% end %>
+</p>
+
+<div id="users-container">
+    <%= sync partial: 'user_list', collection: @users, as: :user %>
+    <%= sync_new partial: 'user_list', resource: User.new %>
+</div>
+
+<script type="text/javascript">
+  $("#users-container a.update-link").click(function(){
+    var block = $(this).parent("p");
+    $.get($(this).attr("href"), function(data){
+      $("a.name", block).html(data["full_name"]);
+      $("span.status", block).removeClass("status-in status-out").
+        addClass("status-"+data["status"]).html(data["status"]);
+    });
+    return false;
+  });
+</script>
